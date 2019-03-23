@@ -102,6 +102,12 @@ find_package(catkin REQUIRED COMPONENTS
 ## catkin specific configuration ##
 ###################################
 
+catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES planar2r_kinematics
+#  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs visualization_msgs
+#  DEPENDS system_lib
+)
 ###########
 ## Build ##
 ###########
