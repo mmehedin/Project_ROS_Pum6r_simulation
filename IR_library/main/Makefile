@@ -12,7 +12,10 @@ EXEC_PATH=../bin/
 
 DEPS=../lib/libIRLibrary.a
 
-all: $(EXEC_PATH)simple2R $(EXEC_PATH)mod2R $(EXEC_PATH)checkRigidBodyMotion
+all: $(EXEC_PATH)simple2R $(EXEC_PATH)mod2R $(EXEC_PATH)Spatial3Rtest $(EXEC_PATH)checkRigidBodyMotion
+
+$(EXEC_PATH)Spatial3Rtest: $(SRCDIR)Spatial3Rtest.cpp $(DEPS) | $(EXEC_PATH)
+	$(CC) $(CFLAGS) $< $(LIBS) -o $@ 
 
 $(EXEC_PATH)simple2R: $(SRCDIR)simple2R.cpp $(DEPS) | $(EXEC_PATH)
 	$(CC) $(CFLAGS) $< $(LIBS) -o $@ 

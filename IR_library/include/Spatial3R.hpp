@@ -20,7 +20,7 @@ namespace IRlibrary {
 		public:
 			// Constructors
 			Spatial3R() : l({0, 0, 0}), q({0, 0, 0}), base({0, 0, 0}) { zeroForwardKinematics(); };
-			Spatial3R(double l1_i, double l2_i, double l3_i) : l({l1_i, l2_i, l3_i}), q({0, 0, 0}), base({0, 0}) { zeroForwardKinematics(); };
+			Spatial3R(double l1_i, double l2_i, double l3_i) : l({l1_i, l2_i, l3_i}), q({0, 0, 0}), base({0, 0, 0}) { zeroForwardKinematics(); };
 
 			void setConfig(const Vec3 &q_i) { q = q_i; zeroForwardKinematics(); }
 			void setX(const Vec3 &x_i) { x = x_i; }
