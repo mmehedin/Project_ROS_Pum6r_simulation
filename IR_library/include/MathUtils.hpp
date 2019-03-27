@@ -1,6 +1,8 @@
 #ifndef MATHUTILS
 #define MATHUTILS
 
+#include <cmath>
+
 namespace IRlibrary {
 
 	/** Returns true if value close to zero **/
@@ -10,7 +12,6 @@ namespace IRlibrary {
 
 	/** Wraps angle (in radians) between 0 to 2 pi **/
 	double wrapTo2PI (double val) {
-		return val;
 	}
 
 	/** Wraps angle (in radians) between -pi to pi **/
@@ -23,7 +24,7 @@ namespace IRlibrary {
 		return val;
 	}
 	/** Converts angle from radians to degree **/
-	double deg2rad (double val) {
+	double rad2deg (double val) {
 		return val;
 	}
 
