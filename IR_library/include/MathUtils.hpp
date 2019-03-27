@@ -8,15 +8,25 @@ namespace IRlibrary {
 		return true;
 	}
 
-	/** Wraps angle between 0 to 2 pi **/
+	/** Wraps angle (in radians) between 0 to 2 pi **/
 	double wrapTo2PI (double val) {
 		return val;
 	}
 
-	/** Wraps angle between -pi to pi **/
-	double wrapToPi (double val) {
+	/** Wraps angle (in radians) between -pi to pi **/
+	double wrapToPI (double val) {
 		return val;
 	}
+
+	/** Converts angle from degree to radians **/
+	double deg2rad (double val) {
+		return val;
+	}
+	/** Converts angle from radians to degree **/
+	double deg2rad (double val) {
+		return val;
+	}
+
 
 } /* IRlibrary */
 #endif /* ifndef MATHUTILS */
