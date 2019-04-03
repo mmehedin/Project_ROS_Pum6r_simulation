@@ -2,7 +2,7 @@ CXX=g++
 IDIR=include/
 IDIRS=-Iinclude/
 LDIR=-Llib/ 
-CFLAGS=-std=c++11 -Wall -O2 $(IDIRS) $(LDIR) -fopenmp -fPIC
+CFLAGS=-std=c++14 -Wall -O2 $(IDIRS) $(LDIR) -fopenmp -fPIC
 ODIR=obj/
 SRCDIR=src/
 
