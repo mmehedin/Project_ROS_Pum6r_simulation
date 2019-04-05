@@ -14,10 +14,13 @@ LIB_PATH=lib/
 _DEPS=RigidBodyMotion.hpp TypeDefs.hpp ForwardKinematics.hpp MathUtils.hpp
 DEPS=$(patsubst %,$(IDIR)%,$(_DEPS))
 
-_OBJ_ALL=Planar2R.o Planar2Rmod.o Planar3R.o Spatial3R.o MathUtils.o
+_OBJ_ALL=Planar2R.o Planar2Rmod.o Planar3R.o Spatial3R.o MathUtils.o RigidBodyMotion.o
 OBJ_ALL=$(patsubst %,$(ODIR)%,$(_OBJ_ALL))
 
 all: $(LIB_PATH)libIRLibrary.a  
+	cd main && $(MAKE)
+
+exec: $(LIB_PATH)libIRLibrary.a  
 	cd main && $(MAKE)
 
 $(ODIR):
