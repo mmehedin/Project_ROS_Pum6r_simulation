@@ -4,8 +4,9 @@
 
 #include <array>
 #include <cmath>
-#include "TypeDefs.hpp"
-#include "Planar2R.hpp"
+#include <TypeDefs.hpp>
+#include <Planar2R.hpp>
+#include <ForwardKinematics.hpp>
 
 namespace IRlibrary {
 	class Spatial3R {
