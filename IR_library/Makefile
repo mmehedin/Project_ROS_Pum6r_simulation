@@ -1,10 +1,11 @@
 CXX=g++
 IDIR=include/
 IDIRS=-Iinclude/
-LDIR=-Llib/ 
+LDIR=-Llib/ -Lgtest/
 CFLAGS=-std=c++14 -Wall -O2 $(IDIRS) $(LDIR) -fopenmp -fPIC
 ODIR=obj/
 SRCDIR=src/
+MAINDIR=main/
 
 LIBS=
 EXEC_PATH=bin/
@@ -25,8 +26,14 @@ $(ODIR):
 $(LIB_PATH):
 	mkdir -p $(LIB_PATH)
 
+$(EXEC_PATH):
+	mkdir -p $(EXEC_PATH)
+
 $(ODIR)%.o: $(SRCDIR)%.cpp $(IDIR)%.hpp $(DEPS) | $(ODIR) $(LIB_PATH)
 	$(CXX) -c -o $@ $< $(CFLAGS)
+
+gradeAll: $(MAINDIR)gradeAll.cpp $(DEPS) | $(EXEC_PATH)
+	cd main && $(MAKE) gradeAll
 
 $(LIB_PATH)libIRLibrary.a: $(OBJ_ALL)
 	ar rcs $@ $^

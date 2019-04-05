@@ -12,6 +12,7 @@ namespace IRlibrary {
 
 	/** Wraps angle (in radians) between 0 to 2 pi **/
 	double wrapTo2PI (double val) {
+		return val;
 	}
 
 	/** Wraps angle (in radians) between -pi to pi **/
