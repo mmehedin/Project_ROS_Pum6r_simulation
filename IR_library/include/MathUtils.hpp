@@ -16,6 +16,7 @@ namespace IRlibrary {
 
 	/** Converts angle from degree to radians **/
 	double deg2rad (double); 
+
 	/** Converts angle from radians to degree **/
 	double rad2deg (double); 
 

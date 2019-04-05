@@ -22,6 +22,7 @@ namespace IRlibrary {
 	double deg2rad (double val) {
 		return val;
 	}
+
 	/** Converts angle from radians to degree **/
 	double rad2deg (double val) {
 		return val;
