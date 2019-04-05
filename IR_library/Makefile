@@ -1,7 +1,7 @@
 CXX=g++
 IDIR=include/
 IDIRS=-Iinclude/
-LDIR=-Llib/ -Lgtest/
+LDIR=-Llib/
 CFLAGS=-std=c++14 -Wall -O2 $(IDIRS) $(LDIR) -fopenmp -fPIC
 ODIR=obj/
 SRCDIR=src/
@@ -14,7 +14,7 @@ LIB_PATH=lib/
 _DEPS=RigidBodyMotion.hpp TypeDefs.hpp ForwardKinematics.hpp MathUtils.hpp
 DEPS=$(patsubst %,$(IDIR)%,$(_DEPS))
 
-_OBJ_ALL=Planar2R.o Planar2Rmod.o Planar3R.o Spatial3R.o
+_OBJ_ALL=Planar2R.o Planar2Rmod.o Planar3R.o Spatial3R.o MathUtils.o
 OBJ_ALL=$(patsubst %,$(ODIR)%,$(_OBJ_ALL))
 
 all: $(LIB_PATH)libIRLibrary.a  
