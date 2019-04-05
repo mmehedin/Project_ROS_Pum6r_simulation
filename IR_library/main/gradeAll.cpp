@@ -1,7 +1,7 @@
 #include <cmath>
 #include <gtest/gtest.h>
 
-#include "TypeDefs.hpp"
+#include <TypeDefs.hpp>
 #include <MathUtils.hpp>
 #include <RigidBodyMotion.hpp>
 #include <ForwardKinematics.hpp>
