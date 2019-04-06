@@ -15,7 +15,6 @@ namespace IRlibrary
 	typedef Eigen::Matrix <double, 6, 1> Twist;
 	typedef Eigen::Matrix <double, 6, 1> ScrewAxis;
 	typedef Eigen::Matrix <double, 6, 6> AdjMat;
-	typedef Matrix<double, 6, Dynamic> JacMat;
 	struct AxisAngle {
 		Vec3 omega;
 		double theta;
