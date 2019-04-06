@@ -104,10 +104,9 @@ namespace IRlibrary {
 	/** Return the se(3) matrix corresponding to a 6-vector twist V **/
 	se3Mat VecTose3(Twist V){
 		se3Mat mat;
-		mat << 0, 0, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0;
+		mat << 1, 0, 0,
+				0, 1, 0,
+				0, 0, 1;
 		return mat;
 	}
 
