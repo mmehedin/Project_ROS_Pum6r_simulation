@@ -99,15 +99,15 @@
             </material>
        </visual>
 
-       <!--<collision>
+       <collision>
         <geometry>
-           <cylinder length="0.3" radius="0.1"/>
+           <cylinder length="4" radius="1"/>
          </geometry>
        </collision>
        <inertial>
          <mass value="10"/>
          <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
-       </inertial>-->
+       </inertial>
     </link>
 
     <joint name="link_03_wrist" type="revolute">

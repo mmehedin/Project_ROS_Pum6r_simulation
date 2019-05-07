@@ -1,4 +1,5 @@
 <launch>
+<rosparam command="load" file="$(find puma6r_description)/launch/init_config.yaml" />
   <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find puma6r_description)/urdf/puma6r_manipulator.xacro'"/>
 
   <!-- Combine joint values -->
