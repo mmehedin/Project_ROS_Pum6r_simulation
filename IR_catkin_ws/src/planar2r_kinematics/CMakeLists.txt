@@ -128,3 +128,9 @@ target_link_libraries(planar2r_kinematics_geometry_shapes ${catkin_LIBRARIES})
 ####################
 ## Add genConfig build instructions ##
 ####################
+
+add_executable(planar2r_kinematics_genConfig src/genConfig.cpp)
+target_link_libraries(planar2r_kinematics_genConfig ${catkin_LIBRARIES} IRLibrary)
+
+add_executable(planar2r_kinematics_simpleTraj src/simpleTraj.cpp)
+target_link_libraries(planar2r_kinematics_simpleTraj ${catkin_LIBRARIES} IRLibrary)

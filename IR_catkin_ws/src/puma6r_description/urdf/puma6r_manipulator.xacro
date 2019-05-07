@@ -1,0 +1,198 @@
+<?xml version="1.0" ?>
+<robot name="puma6r" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:property name="robot_params" value="${load_yaml('../launch/init_config.yaml')}" />
+	<xacro:property name="link_lengths" value="${robot_params['link_lengths']}" />
+	<xacro:property name="link1_length" value="${link_lengths['l1']}" />
+	<xacro:property name="link2_length" value="${link_lengths['l2']}" />
+	<xacro:property name="link3_length" value="${link_lengths['l3']}" />
+	<xacro:property name="link4_length" value="${link_lengths['l4']}" />
+	<xacro:property name="link5_length" value="${link_lengths['l5']}" />
+
+      <!-- Constants for robot dimensions -->
+  <xacro:property name="Pi" value="3.1415926535897931"/>
+
+  <!-- DH parameters for frame modeling -->
+  <!-- DH parameter for base to link 1 -->
+  <xacro:property name="alpha1" value="${Pi/2}"/>
+  <xacro:property name="d1" value="${0.54864 + 0.07493}"/>
+  <xacro:property name="a1" value="0"/>
+
+  <!-- DH parameter for link 1 to link 2 -->
+  <xacro:property name="alpha2" value="0"/>
+  <xacro:property name="d2" value="${0.14224 + 0.0254}"/>
+  <xacro:property name="a2" value="${0.432}"/>
+
+  <!-- DH parameter for link 2 to link 3 -->
+  <xacro:property name="alpha3" value="-${Pi/2}"/>
+  <xacro:property name="d3" value="${0.0381}"/>
+  <xacro:property name="a3" value="${0.35179}"/>
+
+
+
+
+    <link name="base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="${link1_length} 1 1" />
+            </geometry>
+            <material name="Yellow2">
+                <color rgba="0.8 0.8 0 1.0"/>
+            </material>
+        </visual>
+    </link>
+
+    <joint name="base_link__link_01" type="revolute"><!--continuous-->
+        <axis xyz="0 0 1"/>
+        <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin rpy="0 0 0" xyz="0 0 ${link1_length/2}"/>
+        <parent link="base_link"/>
+        <child link="link_01"/>
+    </joint>
+
+    <link name="link_01">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 ${link2_length/2}" />
+            <geometry>
+                <cylinder radius="0.2" length="${link2_length}" />
+            </geometry>
+            <material name="Red2">
+                <color rgba="1 0 0 1.0"/>
+            </material>
+        </visual>
+    </link>
+
+    <joint name="link_01_link_02" type="revolute">
+        <axis xyz="1 0 0"/>
+        <limit effort="1000.0" lower="-${Pi/3}" upper="${Pi/3}" velocity="0.5"/>
+        <origin rpy="1 0 0" xyz="0 0 ${link2_length}"/>
+        <parent link="link_01"/>
+        <child link="link_02"/>
+    </joint>
+
+    <link name="link_02">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 ${link3_length/2}"/>
+            <geometry>
+                <cylinder radius="0.2" length="${link3_length}" />
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="link_02_link_03" type="revolute">
+        <axis xyz="1 0 0"/>
+        <limit effort="1000.0" lower="0" upper="${2*Pi/3}" velocity="0.5"/>
+        <origin rpy="1 0 0" xyz="0 0 ${link3_length}"/>
+        <parent link="link_02"/>
+        <child link="link_03"/>
+    </joint>
+
+    <link name="link_03">
+        <visual>
+            <!--<origin xyz="0 0 0" rpy="0 ${Pi/2} 0"/>-->
+            <origin rpy="0 0 0" xyz="0 0 ${link4_length/2}"/>
+            <geometry>
+                <cylinder radius="0.2" length="${link4_length}"/>
+            </geometry>
+            <material name="Cyan1">
+                <color rgba="0 0.9 0.9 1.0"/>
+            </material>
+       </visual>
+
+       <!--<collision>
+        <geometry>
+           <cylinder length="0.3" radius="0.1"/>
+         </geometry>
+       </collision>
+       <inertial>
+         <mass value="10"/>
+         <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+       </inertial>-->
+    </link>
+
+    <joint name="link_03_wrist" type="revolute">
+        <axis xyz="1 0 0"/>
+        <limit effort="1000.0" lower="-${Pi/2}" upper="${Pi/2}" velocity="0.5"/>
+        <origin rpy="0 0 0" xyz="0 0 ${link4_length}"/>
+        <parent link="link_03"/>
+        <child link="wrist"/>
+    </joint>
+
+    <link name="wrist">
+        <visual>
+            <!--<origin xyz="0 0 0" rpy="0 ${Pi/2} 0"/>-->
+            <origin rpy="0 0 0" xyz="0 0 ${link5_length/2}"/>
+            <geometry>
+                <cylinder radius="0.1" length="${link5_length}"/>
+            </geometry>
+            <material name="Red1">
+                <color rgba="1 0 0 1.0"/>
+            </material>
+        </visual>
+    </link>
+
+
+    <joint name="wrist_left_gripper" type="revolute">
+        <axis xyz="0 0 1"/>
+        <limit effort="1000.0" lower="0.2" upper="${Pi/2}" velocity="0.5"/>
+        <origin rpy="0 -${Pi/2} -${Pi/2}" xyz="0 0.1 1"/>
+        <parent link="wrist"/>
+        <child link="left_gripper"/>
+    </joint>
+
+    <link name="left_gripper">
+        <visual>
+            <origin rpy="0.0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://puma6r_description/meshes/l_finger.dae" scale="8 8 8"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="left_tip_joint" type="fixed">
+        <parent link="left_gripper"/>
+        <child link="left_tip"/>
+    </joint>
+
+    <link name="left_tip">
+        <visual>
+            <!--<origin rpy="0.0 0 0" xyz="0.09137*8 0.00495*8 0"/>-->
+            <origin rpy="0 0 0" xyz="0.8 0.05 0"/>
+            <geometry>
+                <mesh filename="package://puma6r_description/meshes/l_finger_tip.dae"  scale="8 8 8"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="wrist_right_gripper" type="revolute">
+        <axis xyz="0 0 1"/>
+        <limit effort="1000.0" lower="-${Pi/2}" upper="-0.2" velocity="0.5"/>
+        <origin rpy="0 -${Pi/2} -${Pi/2}" xyz="0 0.1 1"/>
+        <parent link="wrist"/>
+        <child link="right_gripper"/>
+    </joint>
+
+    <link name="right_gripper">
+        <visual>
+        <origin rpy="-${Pi} 0 0" xyz="0 0 0"/>
+        <geometry>
+            <mesh filename="package://puma6r_description/meshes/l_finger.dae"  scale="8 8 8"/>
+        </geometry>
+        </visual>
+    </link>
+
+    <joint name="right_tip_joint" type="fixed">
+        <parent link="right_gripper"/>
+        <child link="right_tip"/>
+    </joint>
+
+    <link name="right_tip">
+        <visual>
+            <origin rpy="${Pi} 0 0" xyz="0.8 0.05 0"/>
+            <geometry>
+                <mesh filename="package://puma6r_description/meshes/l_finger_tip.dae"  scale="8 8 8"/>
+            </geometry>
+        </visual>
+    </link>
+
+</robot>

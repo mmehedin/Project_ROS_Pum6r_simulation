@@ -10,7 +10,7 @@
   <!-- Show in Rviz   -->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find spatial3r_description)/launch/config.rviz" />
 
-	<node pkg="spatial3r_kinematics" type="spatial3r_kinematics_forwardKinematics" name="forwardKinematics" />
+    <node pkg="spatial3r_kinematics" type="spatial3r_kinematics_forwardKinematics" name="forwardKinematics" />
 	<node pkg="spatial3r_kinematics" type="spatial3r_kinematics_geometry_shapes" name="geometry_shapes" />
   <!-- <node pkg="spatial3r_kinematics" type="spatial3r_kinematics_plotXY.py" name="plotXY" /> -->
   <!-- send joint values -->

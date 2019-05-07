@@ -15,9 +15,11 @@ namespace IRlibrary
 	typedef Eigen::Matrix <double, 6, 1> Twist;
 	typedef Eigen::Matrix <double, 6, 1> ScrewAxis;
 	typedef Eigen::Matrix <double, 6, 6> AdjMat;
+	typedef Eigen::Matrix <double, 6, Eigen::Dynamic> JacobianMat;
+
 	struct AxisAngle {
 		Vec3 omega;
 		double theta;
 	};
-} /* IRlibrary */ 
+} /* IRlibrary */
 #endif /* ifndef TYPEDEFS_HPP */

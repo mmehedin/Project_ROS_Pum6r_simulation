@@ -4,6 +4,14 @@ project(planar3r_kinematics)
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
+find_package(OpenMP REQUIRED)
+if(OPENMP_FOUND)
+	message(STATUS "OPENMP FOUND")
+	set(OpenMP_FLAGS ${OpenMP_CXX_FLAGS}) # or if you use C: ${OpenMP_C_FLAGS}
+	set(OpenMP_LIBS gomp)
+endif()
+
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -50,8 +58,13 @@ LINK_DIRECTORIES(../../../IR_library/lib)
 
 
 add_executable(planar3r_kinematics_forwardKinematics src/forwardKinematics.cpp)
-target_link_libraries(planar3r_kinematics_forwardKinematics ${catkin_LIBRARIES} IRLibrary)
+target_link_libraries(planar3r_kinematics_forwardKinematics ${catkin_LIBRARIES} IRLibrary ${OpenMP_LIBS})
 add_executable(planar3r_kinematics_geometry_shapes src/geometry_shapes.cpp)
 target_link_libraries(planar3r_kinematics_geometry_shapes ${catkin_LIBRARIES})
 
+#add_executable(planar3r_kinematics_genConfig src/genConfig.cpp)
+#target_link_libraries(planar3r_kinematics_genConfig ${catkin_LIBRARIES} IRLibrary)
+
+add_executable(planar3r_kinematics_genConfig3R src/genConfig3R.cpp)
+target_link_libraries(planar3r_kinematics_genConfig3R ${catkin_LIBRARIES} IRLibrary)
 

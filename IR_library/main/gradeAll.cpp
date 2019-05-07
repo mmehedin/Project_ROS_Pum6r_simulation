@@ -5,7 +5,7 @@
 #include <MathUtils.hpp>
 #include <RigidBodyMotion.hpp>
 #include <ForwardKinematics.hpp>
-
+#include <Jacobian.hpp>
 using namespace IRlibrary;
 
 inline bool equalQ(double val1, double val2, double eps = 1e-12) { return fabs(val1 - val2) <= eps; }
@@ -483,6 +483,81 @@ TEST(FKinSpace, all){
 	SE3Mat Tp = FKinSpace(M, Slist, thetaList);
 
 	EXPECT_TRUE(T_endEffector.isApprox(Tp));
+}
+TEST (JacobianSpace, all){
+	double q[] = {M_PI/4.,M_PI/6., M_PI/3., 3.0};
+	double l1= 3.0;
+	double l2 = 4.0;
+	std::vector <ScrewAxis> Slist;
+	std::vector <double> thetaList;
+	ScrewAxis S;
+	S << 0,0,1,0,0,0;
+	Slist.push_back(S);
+	thetaList.push_back(q[0]);
+
+	S << 0,0,1,0, -l1, 0;
+	Slist.push_back(S);
+	thetaList.push_back(q[1]);
+
+	S << 0,0,1,0,-l1-l2,0;
+	Slist.push_back(S);
+	thetaList.push_back(q[2]);
+
+	S << 0,0,0,0,0,1;
+	Slist.push_back(S);
+	thetaList.push_back(q[3]);
+
+	auto Js = JacobianSpace(Slist, thetaList);
+
+	JacobianMat Jsp (6,4); //4deg of f
+	Jsp << 0,0,0,0,
+		0,0,0,0,
+		1,1,1,0,
+		0,l1*sin(q[0]), l1*sin(q[0]) +l2 * sin(q[0]+ q[1]), 0,
+		0,-l1*cos(q[0]), -l1*cos(q[0]) -l2 * cos(q[0]+ q[1]), 0,
+		0,0,0,1;
+
+
+	EXPECT_TRUE(Jsp.isApprox(Js));
+
+}
+
+TEST (JacobianBody, all){
+	double q[] = {M_PI/4.,M_PI/6., M_PI/3., 3.0};
+	double l1= 3.0;
+	double l2 = 4.0;
+	std::vector <ScrewAxis> Slist;
+	std::vector <double> thetaList;
+	ScrewAxis S;
+	S << 0,0,1,0,0,0;
+	Slist.push_back(S);
+	thetaList.push_back(q[0]);
+
+	S << 0,0,1,0, -l1, 0;
+	Slist.push_back(S);
+	thetaList.push_back(q[1]);
+
+	S << 0,0,1,0,-l1-l2,0;
+	Slist.push_back(S);
+	thetaList.push_back(q[2]);
+
+	S << 0,0,0,0,0,1;
+	Slist.push_back(S);
+	thetaList.push_back(q[3]);
+
+	auto Jb = JacobianBody(Slist, thetaList);
+
+	JacobianMat Jsp (6,4); //4deg of f
+	Jsp <<  0,0,0,0,
+     0,0, 0, 0,
+     1,1,1,0,
+    6.4641, 3.4641, 0, 0,
+    -5,-5, -7, 0,
+     0, 0, 0,1;
+
+
+	EXPECT_TRUE(Jsp.isApprox(Jb));
+
 }
 int main(int argc, char *argv[])
 {

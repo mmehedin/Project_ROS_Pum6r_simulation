@@ -11,16 +11,16 @@ LIBS=
 EXEC_PATH=bin/
 LIB_PATH=lib/
 
-_DEPS=RigidBodyMotion.hpp TypeDefs.hpp ForwardKinematics.hpp MathUtils.hpp
+_DEPS=RigidBodyMotion.hpp TypeDefs.hpp ForwardKinematics.hpp MathUtils.hpp Jacobian.hpp InverseKinematics.hpp
 DEPS=$(patsubst %,$(IDIR)%,$(_DEPS))
 
-_OBJ_ALL=Planar2R.o Planar2Rmod.o Planar3R.o Spatial3R.o MathUtils.o RigidBodyMotion.o ForwardKinematics.o
+_OBJ_ALL=Planar2R.o Planar2Rmod.o Planar3R.o Spatial3R.o MathUtils.o RigidBodyMotion.o ForwardKinematics.o Jacobian.o InverseKinematics.o Puma6r.o
 OBJ_ALL=$(patsubst %,$(ODIR)%,$(_OBJ_ALL))
 
-all: $(LIB_PATH)libIRLibrary.a  
+all: $(LIB_PATH)libIRLibrary.a
 	cd main && $(MAKE)
 
-exec: $(LIB_PATH)libIRLibrary.a  
+exec: $(LIB_PATH)libIRLibrary.a
 	cd main && $(MAKE)
 
 $(ODIR):
@@ -40,7 +40,7 @@ gradeAll: $(MAINDIR)gradeAll.cpp $(DEPS) | $(EXEC_PATH)
 
 $(LIB_PATH)libIRLibrary.a: $(OBJ_ALL)
 	ar rcs $@ $^
-	
+
 .PHONY: clean
 
 clean:

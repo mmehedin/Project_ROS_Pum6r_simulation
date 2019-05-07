@@ -4,6 +4,7 @@
 #include <array>
 #include <cmath>
 #include "TypeDefs.hpp"
+#include <iostream>
 
 namespace IRlibrary {
 	class Planar2R {
@@ -12,13 +13,14 @@ namespace IRlibrary {
 			Vec2 q; // Configuration space (angle1, angle2)
 			Vec2 xy; // Task space Cartesian cordinates
 			Vec2 base; // Cordinates of the base
+            bool righty;
 		public:
 			// Constructors
 			Planar2R() : l({0, 0}), q({0, 0}), base({0, 0}) { zeroForwardKinematics(); };
 			Planar2R(double l1_i, double l2_i) : l({l1_i, l2_i}), q({0, 0}), base({0, 0}) { zeroForwardKinematics(); };
 
 			void setConfig(const Vec2 &q_i) { q = q_i; zeroForwardKinematics(); }
-			void setXY(const Vec2 &xy_i) { xy = xy_i; }
+			void setXY(const Vec2 &xy_i) {inverseKinematics(xy_i);};//{ xy = xy_i; }
 			void setOrigin(const Vec2 &o_i) { base = o_i; }
 			void setLinks(double l1_i, double l2_i) {l[0] = l1_i; l[1] = l2_i; zeroForwardKinematics();}
 
@@ -27,8 +29,10 @@ namespace IRlibrary {
 			double getAngle () { double ang = q[0] + q[1]; if(ang > 2 * M_PI) ang -= 2 * M_PI; if(ang < 2 * M_PI) ang += 2 * M_PI; return ang; }
 
 			virtual void zeroForwardKinematics();
+			bool inverseKinematics(Vec2 const &);
+			void switchBranch(){righty = !righty;}
 
 	};
-} /* IRlibrary */ 
+} /* IRlibrary */
 
 #endif /* ifndef IRLIBRARY_PLANAR2R_H */

@@ -43,13 +43,13 @@ class ROS_Spatial3R {
 
 			ros::Duration(0.01).sleep();
 			try{
-				listener.lookupTransform("/base_link", "/endEffector",  
+				listener.lookupTransform("/base_link", "/endEffector",
 						then, transform_endEffector);
 				/* transform.setRotation(transform_endEffector.getRotation()); */
 				if(abs(transform_endEffector.getOrigin().x() - x[0]) < 1e-5 && abs(transform_endEffector.getOrigin().y() - x[1]) < 1e-5 && abs(transform_endEffector.getOrigin().z() - x[2]) < 1e-5) {
 					fk_check.data = true;
 				}
-				else 
+				else
 					fk_check.data = false;
 			}
 			catch (tf::TransformException ex){
